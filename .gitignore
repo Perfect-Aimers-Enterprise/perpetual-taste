@@ -1,5 +1,10 @@
 .vercel
 node_modules/
+controller/
+model/
+public/
+routes/
+
 .env
 .githubDirection.txt
 .OldTrialStorage.js
