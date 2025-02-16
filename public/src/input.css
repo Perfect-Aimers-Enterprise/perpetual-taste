@@ -14,5 +14,9 @@ html {
   input, option, textarea, select {
     background: white;
     color: black;
+
   }
   
+  /* label {
+    color: black;
+  } */

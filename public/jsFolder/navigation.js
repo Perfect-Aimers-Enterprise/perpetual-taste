@@ -81,8 +81,6 @@ ForgottenPassword.onclick = () => {
     ForgottenPasswordSection.classList.remove('hidden')
 }
 
-
-
     nextButton.addEventListener('click', async (e) => {
         e.preventDefault()
         if (nextButton.textContent === 'Submit') {
@@ -137,14 +135,21 @@ registrationForm.addEventListener('submit', async (e) => {
         
     
         const data = await registrationResponse.json()
+        console.log(data);
+        
 
         if (data.token) {
-            
-            localStorage.setItem('token', data.token)
             localStorage.setItem('userName', data.user.userName),
             localStorage.setItem('userEmail', data.user.userEmail),
             localStorage.setItem('userPhone', data.user.userPhone)
+            
+        }
+
+        if (data.user.verified) {
+            localStorage.setItem('token', data.token)
             window.location.href = '../htmlFolder/perpetualTaste.html'
+        } else {
+            alert('An email have been sent to you. Please verify your email.')
         }
 
     } catch (error) {
@@ -156,11 +161,13 @@ registrationForm.addEventListener('submit', async (e) => {
 
 loginForm.addEventListener('submit', async (e) => {
     e.preventDefault()
+
     try {
         const loginResponse = await fetch(`${configreg.apiUrl}/doveeysKitchen/api/loginUser`, {
             method: 'post',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+            
             },
             body: JSON.stringify({
                 userEmail: userLoginEmail.value,
@@ -180,12 +187,20 @@ loginForm.addEventListener('submit', async (e) => {
         console.log(data);
 
         if (data.token) {
-            localStorage.setItem('token', data.token)
+
             localStorage.setItem('userName', data.user.userName),
             localStorage.setItem('userEmail', data.user.userEmail)
             localStorage.setItem('userPhone', data.user.userPhone)
-            window.location.href = '../htmlFolder/perpetualTaste.html'
         }
+
+        if (data.user.verified) {
+            localStorage.setItem('token', data.token)
+            window.location.href = '../htmlFolder/perpetualTaste.html'
+        } else {
+            alert('An email have been sent to you. Please verify your email.')
+        }
+
+        
         
     } catch (error) {
         console.log(error);
@@ -212,6 +227,7 @@ forgottenPassForm.addEventListener('submit', async (e) => {
         console.log(userRecoveryEmail.value);
         
         console.log(response);
+        alert('A recovery email have been sent to your mail')
         
     } catch (error) {
         console.log(error);

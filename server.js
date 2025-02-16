@@ -101,19 +101,3 @@ const start = async () => {
 
 start()
 
-
-
-// WebSocket logic
-
-// io.on('connection', (socket) => {
-//   console.log('A user connected:', socket.id);
-
-//   setInterval(() => {
-//       const data = { message: 'Real-time update', timestamp: new Date() };
-//       socket.emit('update', data);
-//   }, 1000);
-
-//   socket.on('disconnect', () => {
-//       console.log('A user disconnected:', socket.id);
-//   });
-// });

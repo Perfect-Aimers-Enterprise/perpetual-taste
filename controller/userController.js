@@ -24,11 +24,11 @@ const registerUser = async (req, res) => {
               user: process.env.perpetual_Taste_EMAIL,
               pass: process.env.perpetual_Taste_PASSWORD,
             },
-            debug: true,
-            logger: true,
+            // debug: true,
+            // logger: true,
           });
           
-        const verifyEmailUrl = `http://${req.headers.host}/verify-email?token=${verificationToken}`;
+        const verifyEmailUrl = `http://${req.headers.host}/doveeysKitchen/api/verify-email?token=${verificationToken}`;
 
         const mailOptions = {
             from: process.env.perpetual_Taste_EMAIL,
@@ -84,7 +84,8 @@ const registerUser = async (req, res) => {
             user: {
                 userName: user.userName,
                 userEmail: user.userEmail,
-                userPhone: user.userPhone
+                userPhone: user.userPhone,
+                verified: user.isVerified
             },
             token
         })
@@ -102,7 +103,12 @@ const registerUser = async (req, res) => {
 const loginUser = async (req, res) => {
     try {
         const {userEmail, userPassword} = req.body
+        console.log("Login request received:", req.body);
+
         const user = await userSchema.findOne({userEmail})
+
+        console.log(user);
+        
 
         if (!user) {
             return res.status(403).json({ error: 'Invalid credentials (Email does not exist)' });
@@ -110,16 +116,21 @@ const loginUser = async (req, res) => {
 
         const isPasswordMatched = await user.comparePassword(userPassword)
 
+        console.log("Password Matched:", isPasswordMatched);
+
         if (!isPasswordMatched) {
             return res.status(403).json({ error: 'Invalid credentials (Wrong Password)' });
         }
+
+
 
         const token = user.createJwt()
         res.status(201).json({
             user: {
                 userName: user.userName,
                 userEmail: user.userEmail,
-                userPhone: user.userPhone
+                userPhone: user.userPhone,
+                verified: user.isVerified
             },
             token
         })
@@ -152,13 +163,23 @@ const verifyRegisteredUser = async (req, res) => {
 
         if(!user) {
             res.status(400).json({message: `Token Expired or Not Found.`})
-            res.sendFile(path.join(__dirname, '../public/htmlFolder/expiredToken.html'));
+            return res.sendFile(path.join(__dirname, '../public/htmlFolder/expiredToken.html'));
         }
 
         user.verificationToken = undefined
         user.verificationTokenExpires = undefined
         user.isVerified = true
         user.pending = false
+
+        await user.save()
+
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: process.env.perpetual_Taste_EMAIL,  // Gmail email address
+                pass: process.env.perpetual_Taste_PASSWORD,
+            }
+        })
 
         const mailOptions = {
             from: process.env.perpetual_Taste_EMAIL,
@@ -261,7 +282,7 @@ const forgottenPassword = async (req, res) => {
             },
         })
 
-        const resetUrl = `http://${req.headers.host}/reset-password?token=${resetToken}&email=${userEmail}`;
+        const resetUrl = `http://${req.headers.host}/doveeysKitchen/api/reset-password?token=${resetToken}&email=${userEmail}`;
 
         const mailOptions = {
             from: process.env.perpetual_Taste_EMAIL,

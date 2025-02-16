@@ -80,4 +80,11 @@
      <!-- <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script> -->
 </body>
 <script src="../jsFolder/userDailyMenu.js"></script>
+<script>
+    const token = localStorage.getItem('token')
+        if (!token) {
+            alert('Please Verify your email to gain access or request new OTP')
+            window.location.href = '../htmlFolder/regLog.html'
+        }
+</script>
 </html>

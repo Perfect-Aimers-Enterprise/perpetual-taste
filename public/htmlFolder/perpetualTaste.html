@@ -605,6 +605,12 @@ document.getElementById("bakeType").addEventListener("change", function () {
     otherBakeTypeContainer.style.display = this.value === "other" ? "block" : "none";
   });
 
+  const token = localStorage.getItem('token')
+        if (!token) {
+            alert('Please Verify your email to gain access or request new OTP')
+            window.location.href = '../htmlFolder/regLog.html'
+        }
+
 </script>
 <script src="../jsFolder/navBar.js"></script>
 <script src="../jsFolder/userMessage.js"></script>
