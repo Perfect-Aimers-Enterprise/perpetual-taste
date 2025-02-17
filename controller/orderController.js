@@ -34,7 +34,7 @@ const createProceedOrder = async (req, res) => {
         
                 const mailOptions = {
                     from: process.env.perpetual_Taste_EMAIL,
-                    to: user.userEmail,
+                    to: orderProceed.userEmail,
                     subject: `Perpetual Taste - Order #${orderProceed._id} Confirmation`,
                     html: `
                         <table style=" width: 100%; margin: auto;">
