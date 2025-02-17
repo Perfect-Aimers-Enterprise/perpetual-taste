@@ -1,4 +1,5 @@
 const LoungeBookingUser = require('../model/bookLoungeModel')
+const nodemailer = require('nodemailer')
 
 const executeLoungeBooking = async (req, res) => {
 

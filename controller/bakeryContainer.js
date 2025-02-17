@@ -1,10 +1,9 @@
 const Bakery = require('../model/bakeryModel')
+const nodemailer = require('nodemailer')
 
 const requestBakery = async (req, res) => {
     try {
         const bakeryVar = await Bakery.create({...req.body})
-        res.status(201).json(bakeryVar)
-
         
                 const transporter = nodemailer.createTransport({
                             service: 'gmail',
@@ -68,6 +67,9 @@ const requestBakery = async (req, res) => {
                         } catch (emailError) {
                             console.error("Nodemailer Error:", emailError);
                         }
+
+            res.status(201).json(bakeryVar)
+
     } catch (error) {
         res.status(500).json(error)
     }
