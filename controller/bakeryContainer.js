@@ -61,12 +61,8 @@ const requestBakery = async (req, res) => {
                             ],
                         }
                 
-                        try {
-                            await transporter.sendMail(mailOptions);
-                            console.log("Email sent successfully");
-                        } catch (emailError) {
-                            console.error("Nodemailer Error:", emailError);
-                        }
+                       
+            await transporter.sendMail(mailOptions);
 
             res.status(201).json(bakeryVar)
 
