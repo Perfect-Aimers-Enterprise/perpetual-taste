@@ -101,6 +101,7 @@ ForgottenPassword.onclick = () => {
 //  LoginDetails
 const userLoginEmail = document.getElementById('userLoginEmail')
 const userLoginPassword = document.getElementById('userLoginPassword')
+const resetToken = document.getElementById('resetToken')
 
 
 // 
@@ -208,7 +209,25 @@ loginForm.addEventListener('submit', async (e) => {
     }
 })
 
+resetToken.addEventListener('click', async (e) => {
+    e.preventDefault()
+    try {
+        const response = await fetch(`${configreg.apiUrl}/doveeysKitchen/api/resendOTP`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({userEmail: localStorage.getItem('userEmail')})
+        })
 
+        if(response.ok) {
+            alert('OTP has been sent to your email')
+        }
+    } catch (error) {
+        console.log(error);
+        
+    }
+})
 
 const forgottenPassForm = document.getElementById('forgottenPassForm')
 const userRecoveryEmail = document.getElementById('userRecoveryEmail')
