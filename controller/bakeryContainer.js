@@ -6,12 +6,12 @@ const requestBakery = async (req, res) => {
         const bakeryVar = await Bakery.create({...req.body})
         
                 const transporter = nodemailer.createTransport({
-                            service: 'gmail',
-                            auth: {
-                                user: process.env.perpetual_Taste_EMAIL,  // Gmail email address
-                                pass: process.env.perpetual_Taste_PASSWORD,
-                            }
-                        })
+                    service: 'gmail',
+                    auth: {
+                        user: process.env.perpetual_Taste_EMAIL,  // Gmail email address
+                        pass: process.env.perpetual_Taste_PASSWORD,
+                    }
+                })
                 
                         const mailOptions = {
                             from: process.env.perpetual_Taste_EMAIL,
@@ -40,9 +40,9 @@ const requestBakery = async (req, res) => {
     
                                 </table>
         
-                                <p><strong>Description: $${bakeryVar.bakeDescription}</strong></p>
+                                <p><strong>Description: ${bakeryVar.bakeDescription}</strong></p>
         
-                                <img src="cid:email-image" alt="Order Image" style="width: 300px; height: auto; margin: 20px auto; display: block; ">
+                                <img src="cid:email-image" alt="Bakery Order Image" style="width: 300px; height: auto; margin: 20px auto; display: block; ">
         
                                 <p>If you have any questions, feel free to contact our support team at <a href="mailto:support@perpetualtaste.com">support@perpetualtaste.com</a>.</p>
         
@@ -54,7 +54,7 @@ const requestBakery = async (req, res) => {
                             `,
                             attachments: [
                                 {
-                                    filename: bakeryVar.menuProductOrderImage, // Image filename
+                                    filename: 'bakery10.jpg', // Image filename
                                     path: path.resolve(__dirname, `../public/image/perpetualTasteImg/bakery10.jpg`),// Image path
                                     cid: 'email-image', // Content ID matches img src
                                 },
