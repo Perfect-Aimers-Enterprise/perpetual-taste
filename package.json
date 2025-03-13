@@ -15,6 +15,7 @@
     "tailwindcss": "^3.4.16"
   },
   "dependencies": {
+    "@vercel/node": "^5.1.10",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.3",
     "cors": "^2.8.5",
