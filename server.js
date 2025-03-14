@@ -40,9 +40,9 @@ app.use(express.json())
 app.use(bodyParser.json())
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/api/test', (req, res) => {
-  res.json({ message: "Server is working!" });
-});
+// app.get('/api/test', (req, res) => {
+//   res.json({ message: "Server is working!" });
+// });
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/htmlFolder/perpetualTaste.html');
