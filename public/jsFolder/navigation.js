@@ -140,11 +140,12 @@ registrationForm.addEventListener('submit', async (e) => {
 
         if (data.token) {
             
-            localStorage.setItem('token', data.token)
+            // localStorage.setItem('token', data.token)
             localStorage.setItem('userName', data.user.userName),
             localStorage.setItem('userEmail', data.user.userEmail),
             localStorage.setItem('userPhone', data.user.userPhone)
-            window.location.href = '../htmlFolder/perpetualTaste.html'
+            // window.location.href = '../htmlFolder/perpetualTaste.html'
+            alert("Verification link sent to your email, verify to continue.");
         }
 
     } catch (error) {
@@ -158,7 +159,7 @@ loginForm.addEventListener('submit', async (e) => {
     e.preventDefault()
     try {
         const loginResponse = await fetch(`${configreg.apiUrl}/doveeysKitchen/api/loginUser`, {
-            method: 'post',
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -179,6 +180,11 @@ loginForm.addEventListener('submit', async (e) => {
         const data = await loginResponse.json()
         console.log(data);
 
+        if (data.user.isVerified === false) {
+            alert('Please verify your email before logging in.');
+            return;
+        }
+        
         if (data.token) {
             localStorage.setItem('token', data.token)
             localStorage.setItem('userName', data.user.userName),
