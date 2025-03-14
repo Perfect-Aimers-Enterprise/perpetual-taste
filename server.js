@@ -69,18 +69,14 @@ app.use('/perpetualtaste', adminBookingRoute)
 app.use('/perpetualtasteuser', bookingLoungeRoute)
 app.use('/perpetualtaste', bakeryRoute)
 
-
-const fs = require('fs');
-const logStream = fs.createWriteStream(__dirname + '/logs/app.log', { flags: 'a' });
-
+// Console logging instead
 app.use((req, res, next) => {
-  logStream.write(`[${new Date().toISOString()}] ${req.method} ${req.url}\n`);
+  console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
   next();
 });
 
-// Use this to log errors
 process.on('uncaughtException', (err) => {
-  logStream.write(`[${new Date().toISOString()}] Uncaught Exception: ${err.message}\n`);
+  console.error(`Uncaught Exception: ${err.message}`);
 });
 
 
