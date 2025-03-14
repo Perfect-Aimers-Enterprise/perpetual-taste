@@ -261,7 +261,7 @@ const forgottenPassword = async (req, res) => {
             },
         })
 
-        const resetUrl = `https://${req.headers.host}/reset-password?token=${resetToken}&email=${userEmail}`;
+        const resetUrl = `https://${req.headers.host}/doveeysKitchen/api/reset-password?token=${resetToken}&email=${userEmail}`;
 
         const mailOptions = {
             from: process.env.perpetual_Taste_EMAIL,
