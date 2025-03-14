@@ -28,7 +28,7 @@ const registerUser = async (req, res) => {
             logger: true,
           });
           
-        const verifyEmailUrl = `http://${req.headers.host}/verify-email?token=${verificationToken}`;
+        const verifyEmailUrl = `https://${req.headers.host}/verify-email?token=${verificationToken}`;
 
         const mailOptions = {
             from: process.env.perpetual_Taste_EMAIL,
@@ -261,7 +261,7 @@ const forgottenPassword = async (req, res) => {
             },
         })
 
-        const resetUrl = `http://${req.headers.host}/reset-password?token=${resetToken}&email=${userEmail}`;
+        const resetUrl = `https://${req.headers.host}/reset-password?token=${resetToken}&email=${userEmail}`;
 
         const mailOptions = {
             from: process.env.perpetual_Taste_EMAIL,
