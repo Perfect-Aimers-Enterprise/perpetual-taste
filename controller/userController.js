@@ -28,7 +28,9 @@ const registerUser = async (req, res) => {
             logger: true,
           });
           
-        const verifyEmailUrl = `https://${req.headers.host}/verify-email?token=${verificationToken}`;
+
+        const verifyEmailUrl = `https://${req.headers.host}/doveeysKitchen/api/verify-email?token=${verificationToken}`;
+
 
         const mailOptions = {
             from: process.env.perpetual_Taste_EMAIL,
