@@ -6,7 +6,7 @@ const {registerUser, loginUser, getRegisteredUser, verifyRegisteredUser, forgott
 router.post('/registerUser', registerUser)
 router.post('/loginUser', loginUser)
 router.get('/getRegisteredUser', getRegisteredUser)
-router.get('/verify-email', verifyRegisteredUser)
+router.post('/verify-email', verifyRegisteredUser)
 router.post('/4gotten-password', forgottenPassword)
 router.post('/reset-password', resetPassword)
 
