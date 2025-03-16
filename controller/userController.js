@@ -162,6 +162,8 @@ const verifyRegisteredUser = async (req, res) => {
         user.isVerified = true
         user.pending = false
 
+        await user.save()
+
         const mailOptions = {
             from: process.env.perpetual_Taste_EMAIL,
             to: user.userEmail,
