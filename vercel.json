@@ -11,9 +11,19 @@
     }
   ],
   "routes": [
+
+    {
+      "src": "/image/(.*)",
+      "dest": "/public/image/$1"
+    },
     {
       "src": "/(.*)",
       "dest": "/server.js"
     }
-  ]
+  ],
+  "functions": {
+    "api/*": {
+      "maxDuration": 60
+    }
+  }
 }
