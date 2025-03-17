@@ -3,7 +3,7 @@ const path = require('path')
 
 const heroImageUpload = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'public/image/heroImage')
+        cb(null, 'public/uploads/heroImage')
     },
     filename: function (req, file, cb) {
         const uniqueSuffix = Date.now() +'_'+ Math.round(Math.random()*1E9)
@@ -14,7 +14,7 @@ const heroImageUpload = multer.diskStorage({
 
 const menuImageUpload = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'public/image/menuLandingImage')
+        cb(null, 'public/uploads/menuLandingImage')
     },
     filename: function (req, file, cb) {
         const uniqueSuffix = Date.now() +'_'+ Math.round(Math.random()*1E9)
@@ -26,7 +26,7 @@ const menuImageUpload = multer.diskStorage({
 
 const specialImageUpload = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'public/image/specialLandingImage')
+        cb(null, 'public/uploads/specialLandingImage')
     },
     filename: function (req, file, cb) {
         const uniqueSuffix = Date.now() +'_'+ Math.round(Math.random()*1E9)
@@ -37,7 +37,7 @@ const specialImageUpload = multer.diskStorage({
 
 const flyer1Upload = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'public/image/flyer1')
+        cb(null, 'public/uploads/flyer1')
     },
     filename: function (req, file, cb) {
         const uniqueSuffix = Date.now() +'_'+ Math.round(Math.random()*1E9)
@@ -48,7 +48,7 @@ const flyer1Upload = multer.diskStorage({
 
 const flyer2Upload = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'public/image/flyer2')
+        cb(null, 'public/uploads/flyer2')
     },
     filename: function (req, file, cb) {
         const uniqueSuffix = Date.now() +'_'+ Math.round(Math.random()*1E9)

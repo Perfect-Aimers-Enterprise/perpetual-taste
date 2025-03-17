@@ -60,7 +60,7 @@ const getHeroImageDisplay = async () => {
       const dynamicHeroImage = document.getElementById('dynamicHeroImage')
 
       const populateHeroImage = `
-        <div class="relative bg-cover bg-center text-white h-[50vh] md:h-[60vh] lg:h-[70vh] xl:h-[85vh]" style="background-image: url('../image/heroImage/${eachData.heroImage}');">
+        <div class="relative bg-cover bg-center text-white h-[50vh] md:h-[60vh] lg:h-[70vh] xl:h-[85vh]" style="background-image: url('../uploads/heroImage/${eachData.heroImage}');">
           <div class="hero-overlay absolute inset-0"></div>
           <div class="relative h-full flex flex-col justify-center items-center text-center">
             <h2 class="text-2xl md:text-5xl font-bold mb-4">${eachData.heroImageName}</h2>
@@ -90,7 +90,7 @@ const getFlyer1Display = async () => {
       const flyer1Section = document.getElementById('flyer1Section')
 
       const populateFlyer1 = `
-        <a href="https://wa.me/message/LV4DUBT6DDZHA1" style="background-image: url(../image/flyer1/${eachData.flyer1Image}); background-size: cover;" class=" grid items-center text-[25px] font-bold relative h-[200px] md:h-[40vh] lg:h-[50vh] xl:h-[60vh]">
+        <a href="#" style="background-image: url(../uploads/flyer1/${eachData.flyer1Image}); background-size: cover;" class=" grid items-center text-[25px] font-bold relative h-[200px] md:h-[40vh] lg:h-[50vh] xl:h-[60vh]">
           <div class="bg-black opacity-50 inset-0 absolute"></div>
           <div class="text-center relative">
             <h1>${eachData.flyer1Title} (Contact Us)</h1>
@@ -116,7 +116,7 @@ const getFlyer2Display = async () => {
       const flyer2Section = document.getElementById('flyer2Section')
 
       const populateFlyer2 = `
-        <a href="https://wa.me/message/LV4DUBT6DDZHA1" style="background-image: url(../image/flyer2/${eachData.flyer2Image}); background-size: cover;" class=" grid items-center text-[25px] font-bold relative h-[200px] md:h-[40vh] lg:h-[50vh] xl:h-[60vh]">
+        <a href="#" style="background-image: url(../uploads/flyer2/${eachData.flyer2Image}); background-size: cover;" class=" grid items-center text-[25px] font-bold relative h-[200px] md:h-[40vh] lg:h-[50vh] xl:h-[60vh]">
           <div class="bg-black opacity-50 inset-0 absolute"></div>
           <div class="text-center relative">
             <h1>${eachData.flyer2Title} (Contact Us)</h1>
@@ -145,7 +145,7 @@ const getMenuLandingFunc = async () => {
 
       const populateMenuLanding = `
         <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg">
-          <img src="../image/menuLandingImage/${eachData.menuLandingImage}" alt="Grilled Chicken" class="rounded-lg w-full h-40 object-cover">
+          <img src="../uploads/menuLandingImage/${eachData.menuLandingImage}" alt="Grilled Chicken" class="rounded-lg w-full h-40 object-cover">
           <h4 class="mt-4 text-xl font-semibold">${eachData.menuLandingName}</h4>
           <p class="mt-2 text-gray-600">${eachData.menuLandingDes}</p>
           
@@ -182,7 +182,7 @@ const getSpecialLandingFunc = async () => {
 
       const populateSpecialLanding = `
         <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg">
-          <img src="../image/specialLandingImage/${eachData.specialLandingImage}" alt="Valentine Package" class="rounded-lg w-full h-40 object-cover">
+          <img src="../uploads/specialLandingImage/${eachData.specialLandingImage}" alt="Valentine Package" class="rounded-lg w-full h-40 object-cover">
           <h4 class="mt-4 text-xl font-semibold text-gray-900">${eachData.specialLandingName}</h4>
           <p class="mt-2 text-gray-600">${eachData.specialLandingDes}</p>
           

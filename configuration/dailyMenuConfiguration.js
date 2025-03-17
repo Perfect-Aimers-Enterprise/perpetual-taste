@@ -5,7 +5,7 @@ const fs = require('fs');
 
 const newDailyMenuStorage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'public/image/dailyMenu');
+        cb(null, 'public/uploads/dailyMenu');
     },
     filename: function (req, file, cb) {
         const uniqueSuffix = Date.now() + '_' + Math.round(Math.random() * 1E9);
