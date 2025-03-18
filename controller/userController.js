@@ -107,13 +107,13 @@ const loginUser = async (req, res) => {
         const user = await userSchema.findOne({userEmail})
 
         if (!user) {
-            return res.status(403).json({ error: 'Invalid credentials (Email does not exist)' });
+            return res.status(404).json({ error: 'Invalid credentials (Email does not exist)' });
         }
 
         const isPasswordMatched = await user.comparePassword(userPassword)
 
         if (!isPasswordMatched) {
-            return res.status(403).json({ error: 'Invalid credentials (Wrong Password)' });
+            return res.status(404).json({ error: 'Invalid credentials (Wrong Password)' });
         }
 
         const token = user.createJwt()
