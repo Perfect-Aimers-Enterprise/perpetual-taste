@@ -24,9 +24,14 @@ const userSchema = new mongoose.Schema({
 })
 
 userSchema.pre('save', async function () {
+     // Only hash the password if it is modified
+     if (!this.isModified("userPassword")) return next();
+
     const salt = await bcrypt.genSalt(10)
     const hashedPassword = await bcrypt.hash(this.userPassword, salt)
     this.userPassword = hashedPassword
+
+    next(); // Call next() to proceed
 })
 
 userSchema.methods.createJwt = function () {
