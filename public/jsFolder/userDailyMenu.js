@@ -25,7 +25,7 @@ async function getAllDailyMenus() {
 
             const populateMenuDish = `
                 <div id="dailyMenuEachData" class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg" data-id="${eachDailyMenuId}">
-                    <img src="../uploads/dailyMenu/${eachData.menuImage}" alt="Grilled Chicken" class="rounded-lg w-full h-80 object-cover">
+                    <img src="${eachData.menuImage}" alt="Grilled Chicken" class="rounded-lg w-full h-80 object-cover">
                     <h4 class="mt-4 text-xl font-semibold">${eachData.menuTitle}</h4>
                     <p class="mt-2 text-gray-600">₦${eachData.price}</p>
                     
@@ -86,7 +86,7 @@ async function getSingleDailyMenu(eachDailyMenuData) {
 
             <!-- Product Image -->
             <div class="mb-4 h-[400px] items-center justify-center overflow-hidden">
-                <img id="orderProceedImage" src="../uploads/dailyMenu/${menuProductOrderImage}" alt="Product Image" class="rounded-lg w-full h-[400px]">
+                <img id="orderProceedImage" src="${menuProductOrderImage}" alt="Product Image" class="rounded-lg w-full h-[400px]">
             </div>
 
             <!-- Product Name -->

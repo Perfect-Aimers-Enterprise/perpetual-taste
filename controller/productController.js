@@ -61,6 +61,9 @@ const deleteMenuProduct = async (req, res) => {
         const { id:menuProductId } = req.params
         const menuProduct = await productModel.findOneAndDelete({_id:menuProductId})
 
+        const oldImagePublicId = menuProduct.menuImage.split('/').pop().split('.')[0];
+        await cloudinary.uploader.destroy(`menuImages/${oldImagePublicId}`);
+
         res.status(201).send('Product Successfully Deleted')
     } catch (error) {
         res.status(500).json(error)
@@ -77,6 +80,16 @@ const updateMenuProduct = async (req, res) => {
             { menuProductName, menuDescription, menuPrice },
             { new: true, runValidators: true}
         )
+
+        if (!menuProduct) {
+            return res.status(404).json({ message: "Product not found!" });
+        }
+
+        if(menuProduct) {
+            const oldImagePublicId = menuProduct.menuImage.split('/').pop().split('.')[0];
+            await cloudinary.uploader.destroy(`menuImages/${oldImagePublicId}`);
+        }
+
         res.status(201).json(menuProduct)
     } catch (error) {
         res.status(500).json(error)

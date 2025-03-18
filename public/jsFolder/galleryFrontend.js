@@ -64,7 +64,7 @@ async function fetchUserGallery() {
 
           content = `
               <div class="border rounded-lg shadow-lg p-4 bg-white text-black">
-                <img src="../uploads/GalleryVideo/${item.galleryMedia}" alt="${item.galleryTitle}" class="h-60 w-full object-fill rounded"></img>
+                <img src="${item.galleryMedia}" alt="${item.galleryTitle}" class="h-60 w-full object-fill rounded"></img>
                 <h3 id="men" class="mt-4 text-xl font-semibold">${item.galleryTitle}</h3>
                 <p class="text-gray-600"><span>Posted: </span>${timePosted}</p>
               </div>
@@ -75,7 +75,7 @@ async function fetchUserGallery() {
           content = `
               <div class="border rounded-lg shadow-lg p-4 bg-white text-black">
                 <video controls class="h-60 w-full object-fill rounded">
-                    <source src="../uploads/GalleryVideo/${item.galleryMedia}" type="video/mp4">
+                    <source src="${item.galleryMedia}" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
                 <h3 id="men" class="mt-4 text-xl font-semibold">${item.galleryTitle}</h3>

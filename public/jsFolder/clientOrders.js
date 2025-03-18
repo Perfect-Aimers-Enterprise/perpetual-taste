@@ -39,7 +39,7 @@ const getAllMenuProductFunc = async () => {
                 
                 productContent = `
                     <div class="border rounded-lg shadow-lg p-4 bg-white text-black menu-item" data-id="${eachDataId}">
-                        <img src="../uploads/menuImage/${eachData.menuImage}" alt="${eachData.menuProductName}" class="w-full h-48 object-cover rounded">
+                        <img src="${eachData.menuImage}" alt="${eachData.menuProductName}" class="w-full h-48 object-cover rounded">
                         <h3 class="mt-4 text-xl font-semibold">${eachData.menuProductName}</h3>
                         <p class="text-gray-600">${eachData.menuDescription}</p>
                         <p class="mt-2 text-orange-700 font-bold">₦${eachData.menuPrice}</p>
@@ -52,7 +52,7 @@ const getAllMenuProductFunc = async () => {
 
                  productContent = `
                      <div class="border rounded-lg shadow-lg p-4 bg-white text-black menu-item" data-id="${eachDataId}">
-                         <img src="../uploads/menuImage/${eachData.menuImage}" alt="${eachData.menuProductName}" class="w-full h-48 object-cover rounded">
+                         <img src="${eachData.menuImage}" alt="${eachData.menuProductName}" class="w-full h-48 object-cover rounded">
                          <h3 class="mt-4 text-xl font-semibold">${eachData.menuProductName}</h3>
                          <p class="text-gray-600">${eachData.menuDescription}</p>
                          <p class="mt-2 text-orange-700 font-bold">₦${firstVariationPrice}</p>
@@ -185,7 +185,7 @@ const populateUserProceedOrder = () => {
 
             <!-- Product Image -->
             <div class="mb-4 h-[400px] items-center justify-center overflow-hidden">
-                <img id="orderProceedImage" src="../uploads/menuImage/${proceedOrderImg}" alt="Product Image" class="rounded-lg w-full h-[400px]">
+                <img id="orderProceedImage" src="${proceedOrderImg}" alt="Product Image" class="rounded-lg w-full h-[400px]">
             </div>
 
             <!-- Product Name -->
@@ -400,7 +400,7 @@ const populateUserProceedOrder = () => {
             
 
                 const formData = {
-                    menuProductOrderImage: `../uploads/menuImage/${proceedOrderImg}`,
+                    menuProductOrderImage: `${proceedOrderImg}`,
                     menuProductOrderName: `${proceedOrderName} - Size: ${selectedSizeValue}`,
                     menuProductOrderPrice: selectedPrice,
                     menuTotalProductOrderPrice: selectedPrice * quantity.value,
@@ -416,12 +416,6 @@ const populateUserProceedOrder = () => {
                             price: parseFloat(variationSelect.value)
                         }
                     })
-                    // ...(menuProductVariations.length > 0 && {
-                    //     menuProductOrderVariation: {
-                    //         size: document.getElementById('variationSelect').selectedOptions[0].dataset.variationName,
-                    //         price: parseFloat(document.getElementById('variationSelect').value)
-                    //     }
-                    // })
                 }
     
 
@@ -550,7 +544,3 @@ function isAllVariationsInvalid(variations) {
         },
       })
   }  
-
-
-
-

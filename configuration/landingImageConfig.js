@@ -1,67 +1,28 @@
 const multer = require('multer')
-const path = require('path')
+const { v2: cloudinary } = require('cloudinary')
+const { CloudinaryStorage } = require('multer-storage-cloudinary')
 
-const heroImageUpload = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'public/uploads/heroImage')
-    },
-    filename: function (req, file, cb) {
-        const uniqueSuffix = Date.now() +'_'+ Math.round(Math.random()*1E9)
-        const fileExtension = path.extname(file.originalname)
-        cb(null, file.fieldname +'_'+ uniqueSuffix+fileExtension)
-    }
+// Configure Cloudinary
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
 })
 
-const menuImageUpload = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'public/uploads/menuLandingImage')
-    },
-    filename: function (req, file, cb) {
-        const uniqueSuffix = Date.now() +'_'+ Math.round(Math.random()*1E9)
-        const fileExtension = path.extname(file.originalname)
 
-        cb(null, file.fieldname +'_'+ uniqueSuffix+fileExtension)
-    }
-})
-
-const specialImageUpload = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'public/uploads/specialLandingImage')
-    },
-    filename: function (req, file, cb) {
-        const uniqueSuffix = Date.now() +'_'+ Math.round(Math.random()*1E9)
-        const fileExtension = path.extname(file.originalname)
-        cb(null, file.fieldname +'_'+ uniqueSuffix+fileExtension)
-    }
-})
-
-const flyer1Upload = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'public/uploads/flyer1')
-    },
-    filename: function (req, file, cb) {
-        const uniqueSuffix = Date.now() +'_'+ Math.round(Math.random()*1E9)
-        const fileExtension = path.extname(file.originalname)
-        cb(null, file.fieldname +'_'+ uniqueSuffix+fileExtension)
-    }
-})
-
-const flyer2Upload = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'public/uploads/flyer2')
-    },
-    filename: function (req, file, cb) {
-        const uniqueSuffix = Date.now() +'_'+ Math.round(Math.random()*1E9)
-        const fileExtension = path.extname(file.originalname)
-        cb(null, file.fieldname +'_'+ uniqueSuffix+fileExtension)
+const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+        folder: 'landingpages',
+        format: async (req, res) => 'png',
+        public_id: (req, file) => Date.now() + '-' + file.originalname
     }
 })
 
 
-const uploadHeroImage = multer({storage: heroImageUpload}).single('heroImage')
-const uploadMenuImage = multer({storage: menuImageUpload}).single('menuLandingImage')
-const uploadSpecialImage = multer({storage: specialImageUpload}).single('specialLandingImage')
-const uploadFlyer1 = multer({storage: flyer1Upload}).single('flyer1Image')
-const uploadFlyer2 = multer({storage: flyer2Upload}).single('flyer2Image')
+const uploadHeroImage = multer({ storage: storage }).single('heroImage')
+const uploadMenuImage = multer({ storage: storage }).single('menuLandingImage')
+const uploadFlyer1 = multer({ storage: storage }).single('flyer1Image')
+const uploadFlyer2 = multer({ storage: storage }).single('flyer2Image')
 
-module.exports = {uploadHeroImage, uploadMenuImage, uploadSpecialImage, uploadFlyer1, uploadFlyer2} 
+module.exports = { uploadHeroImage, uploadMenuImage,  uploadFlyer1, uploadFlyer2 }

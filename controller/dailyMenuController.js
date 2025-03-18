@@ -5,7 +5,7 @@ const fs = require('fs');
 const createDailyMenu = async (req, res) => {
     try {
         const { menuTitle, price } = req.body;
-        const menuImage = req.file.filename;
+        const menuImage = req.file.path;
 
         if (!menuTitle || !price || !menuImage) {
             return res.status(400).json({ error: "Incomplete credentials" });
@@ -48,15 +48,13 @@ const updateDailyMenu = async (req, res) => {
         let updatedFields = { menuTitle, price };
 
         if (req.file) {
-            const newImage = req.file.filename;
+            const newImage = req.file.path;
             updatedFields.menuImage = newImage;
 
             const existingMenu = await DailyMenu.findById(id);
             if (existingMenu) {
-                const existingImagePath = path.join(__dirname, '../public/image/dailyMenu', existingMenu.menuImage);
-                if (fs.existsSync(existingImagePath)) {
-                    fs.unlinkSync(existingImagePath);
-                }
+                const oldImagePublicId = existingMenu.menuImage.split('/').pop().split('.')[0];
+            await cloudinary.uploader.destroy(`dailyMenu/${oldImagePublicId}`);
             }
         }
 
@@ -76,10 +74,8 @@ const deleteDailyMenu = async (req, res) => {
             return res.status(404).json({ error: "Menu not found" });
         }
 
-        const existingImagePath = path.join(__dirname, '../public/image/dailyMenu', menuVar.menuImage);
-        if (fs.existsSync(existingImagePath)) {
-            fs.unlinkSync(existingImagePath);
-        }
+        const oldImagePublicId = menuVar.menuImage.split('/').pop().split('.')[0];
+        await cloudinary.uploader.destroy(`dailyMenu/${oldImagePublicId}`);
 
         res.status(200).json(menuVar);
     } catch (error) {

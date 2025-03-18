@@ -94,7 +94,7 @@ const getMenuProductFunc = async (e) => {
         productContent = `
           <div class="flex items-center justify-between border rounded-lg shadow-md p-4 menuProductEach" data-id="${menuProductId}">
             <div class="flex items-center space-x-4">
-              <img src="../uploads/menuImage/${eachData.menuImage}" alt="${eachData.menuProductName}" class="w-16 h-16 object-cover rounded">
+              <img src="${eachData.menuImage}" alt="${eachData.menuProductName}" class="w-16 h-16 object-cover rounded">
               <div>
                 <h4 class="font-semibold">${eachData.menuProductName}</h4>
                 <p class="text-sm text-gray-600">₦${eachData.menuPrice}</p>
@@ -128,7 +128,7 @@ const getMenuProductFunc = async (e) => {
         productContent = `
           <div class="flex items-center justify-between border rounded-lg shadow-md p-4 menuProductEach" data-id="${menuProductId}">
             <div class="flex items-center space-x-4">
-              <img src="../uploads/menuImage/${eachData.menuImage}" alt="${eachData.menuProductName}" class="w-16 h-16 object-cover rounded">
+              <img src="${eachData.menuImage}" alt="${eachData.menuProductName}" class="w-16 h-16 object-cover rounded">
               <div>
                 <h4 class="font-semibold">${eachData.menuProductName}</h4>
                 <div class="text-sm text-gray-600">
@@ -459,13 +459,6 @@ const fetchAllOrders = async () => {
       adminOrdersList.innerHTML += ordersDisplay;
 
       console.log(adminOrdersList);
-      
-
-      // const cancleOrderBtn = document.getElementById('cancleOrderBtn');
-      // cancleOrderBtn.addEventListener('click', (e) => {
-      //   const deleteMenuOrderId = e.target.closest('.ordersIdClass').dataset.id;
-      //   cancleUserOrders(deleteMenuOrderId);
-      // });
 
       const confirmOrderBtn = document.getElementById('confirmOrderBtn');
       confirmOrderBtn.addEventListener('click', (e) => {
@@ -819,11 +812,6 @@ async function handleCreateFormSubmit(event, endpoint) {
   }
 }
 
-// document.getElementById("menuImageForm").addEventListener("submit", (e) => handleCreateFormSubmit(e, "/doveeysLanding/createMenuImage"));
-
-// document.getElementById("specialImageForm").addEventListener("submit", (e) => handleCreateFormSubmit(e, "/doveeysLanding/createSpecialImage"));
-
-
 
 const galleryForm = document.getElementById('galleryForm')
 const createGalleryFunc = async () => {
@@ -909,7 +897,7 @@ async function fetchGallery() {
         content = `
           <div id="galleryIdDiv" class="flex items-center justify-between border rounded-lg shadow-md p-4" data-id="${deleteId}">
             <div id="galleryDisplayDiv" class="flex items-center space-x-4">
-              <img src="../uploads/GalleryVideo/${item.galleryMedia}" alt="${item.galleryTitle}" class="w-16 h-16 object-cover rounded">
+              <img src="${item.galleryMedia}" alt="${item.galleryTitle}" class="w-16 h-16 object-cover rounded">
             </div>
 
             <div>
@@ -932,7 +920,7 @@ async function fetchGallery() {
           <div id="galleryIdDiv" class="flex items-center justify-between border rounded-lg shadow-md p-4" data-id="${deleteId}">
             <div id="galleryDisplayDiv" class="flex items-center space-x-4">
               <video controls class="w-16 h-16 object-cover rounded">
-                <source src="../uploads/GalleryVideo/${item.galleryMedia}" type="video/mp4">
+                <source src="${item.galleryMedia}" type="video/mp4">
                 Your browser does not support the video tag.
               </video>
             </div>
@@ -1034,7 +1022,7 @@ async function getAllDailyMenus() {
           const populateDailyMenu = `
             <div id="dailydisplayDivv" class="flex items-center justify-between border rounded-lg shadow-md p-4" data-id="${eachDailyMenuId}">
             <div class="flex items-center space-x-4">
-              <img src="../uploads/dailyMenu/${eachData.menuImage}" alt="Chicken Suya" class="w-16 h-16 object-cover rounded">
+              <img src="${eachData.menuImage}" alt="Chicken Suya" class="w-16 h-16 object-cover rounded">
               <div>
                 <h4 class="font-semibold">${eachData.menuTitle}</h4>
                 <p class="text-sm text-gray-600">₦${eachData.price}</p>

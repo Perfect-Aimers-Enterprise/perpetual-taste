@@ -1,9 +1,9 @@
 const fs = require('fs');
 const path = require('path');
+const cloudinary = require('cloudinary').v2;
 
-const HeroImage= require('../model/landingPageModel');
+const HeroImage = require('../model/landingPageModel');
 const MenuLanding = require('../model/menuLandingSchema')
-const SpecialLanding = require('../model/specialLandingSchema')
 const Flyer1 = require('../model/flyer1Model')
 const Flyer2 = require('../model/flyer2Model')
 
@@ -11,17 +11,13 @@ const Flyer2 = require('../model/flyer2Model')
 const uploadHeroImageSchema = async (req, res) => {
     try {
         const { heroImageName, heroImageDes } = req.body;
-        const heroImageUrlFile = req.file.filename;
+        const heroImageUrlFile = req.file.path;
 
         const existingHeroImage = await HeroImage.findOne();
         if (existingHeroImage) {
-            const existingImagePath = path.join(__dirname, '../public/image/heroImage', existingHeroImage.heroImage);
-
-            // Step 2: Check if the file exists
-            if (fs.existsSync(existingImagePath)) {
-                // Step 3: Delete the existing image file
-                fs.unlinkSync(existingImagePath)
-            };
+            // Delete old image from Cloudinary
+            const oldImagePublicId = existingHeroImage.heroImage.split('/').pop().split('.')[0];
+            await cloudinary.uploader.destroy(`landingpages/${oldImagePublicId}`);
 
             const updatedHeroImage = await HeroImage.findByIdAndUpdate(
                 existingHeroImage._id,
@@ -57,7 +53,7 @@ const getHeroImage = async (req, res) => {
 const createMenuImage = async (req, res) => {
     try {
         const { menuLandingName, menuLandingDes } = req.body;
-        const menuLandingImageUrl = req.file.filename;
+        const menuLandingImageUrl = req.file.path;
 
         const existingMenuImages = await MenuLanding.find();
         if (existingMenuImages.length >= 4) {
@@ -78,17 +74,17 @@ const createMenuImage = async (req, res) => {
 const uploadMenuImageSchema = async (req, res) => {
     try {
 
-        const {id: menuImageId} = req.params
-        const {menuLandingName, menuLandingDes} = req.body
-        menuLandingImageUrl = req.file.filename
+        const { id: menuImageId } = req.params
+        const { menuLandingName, menuLandingDes } = req.body
+        menuLandingImageUrl = req.file.path
 
         const menuImageSchema = await MenuLanding.findOneAndUpdate(
-            {_id: menuImageId},
-            {menuLandingName, menuLandingDes, menuLandingImage: menuLandingImageUrl},
-            {new: true, runValidators: true}
+            { _id: menuImageId },
+            { menuLandingName, menuLandingDes, menuLandingImage: menuLandingImageUrl },
+            { new: true, runValidators: true }
         )
 
-        res.status(201).json({menuImageSchema, message: 'menuLandingPage Uploaded Successfullyl'})
+        res.status(201).json({ menuImageSchema, message: 'menuLandingPage Uploaded Successfullyl' })
     } catch (error) {
         res.status(500).json(error)
     }
@@ -107,8 +103,8 @@ const getAllMenuImage = async (req, res) => {
 const getSingleMenuImage = async (req, res) => {
     try {
 
-        const {id:singleMenuId} = req.params
-        const getSingleMenuImageVar = await MenuLanding.findOne({_id:singleMenuId})
+        const { id: singleMenuId } = req.params
+        const getSingleMenuImageVar = await MenuLanding.findOne({ _id: singleMenuId })
         res.status(201).json(getSingleMenuImageVar)
 
     } catch (error) {
@@ -116,83 +112,18 @@ const getSingleMenuImage = async (req, res) => {
     }
 }
 
-// Special Image Controller
-const createSpecialImage = async (req, res) => {
-    try {
-        const { specialLandingName, specialLandingDes } = req.body;
-        const specialLandingImageUrl = req.file.filename;
-
-        const existingSpecialImages = await SpecialLanding.find();
-        if (existingSpecialImages.length >= 4) {
-            return res.status(400).json({ message: 'Maximum of 4 special images allowed!' });
-        }
-
-        const newSpecialImage = await SpecialLanding.create({
-            specialLandingName,
-            specialLandingDes,
-            specialLandingImage: specialLandingImageUrl
-        });
-        res.status(201).json({ newSpecialImage, message: 'Special image uploaded successfully!' });
-    } catch (error) {
-        res.status(500).json({ error });
-    }
-};
-
-const uploadSpecialImageSchema = async (req, res) => {
-    try {
-        const {id: specialImageId} = req.params
-        const {specialLandingName, specialLandingDes} = req.body
-        specialLandingImageUrl = req.file.filename
-
-        const specialImageSchema = await SpecialLanding.findOneAndUpdate(
-            {_id: specialImageId},
-            {specialLandingName, specialLandingDes, specialLandingImage: specialLandingImageUrl},
-            {new: true, runValidators: true}
-        )
-
-        res.status(201).json({specialImageSchema, message: 'Special product uploaded successfull!!!'})
-    } catch (error) {
-        res.status(500).json(error)
-    }
-}
-
-const getAllSpecialImage = async (req, res) => {
-    try {
-        const getAllSpecialImageVar = await SpecialLanding.find()
-        res.status(201).json(getAllSpecialImageVar)
-    } catch (error) {
-        res.status(500).json(error)
-    }
-}
-
-const getSingleSpecialImage = async (req, res) => {
-    try {
-
-        const {_id: singleSpecialId} = req.params
-        const getSingleSpecialImageVar = await SpecialLanding.findOne({_id: singleSpecialId})
-
-        res.status(201).json(getSingleSpecialImageVar)
-    } catch (error) {
-        res.status(500).json(error)
-    }
-}
-
 // Flyer 1 Image Controller (Only 1 flyer)
 const uploadFlyer1Schema = async (req, res) => {
     try {
         const { flyer1Title } = req.body;
-        const flyer1ImageUrl = req.file.filename;
+        const flyer1ImageUrl = req.file.path;
 
         const existingFlyer1 = await Flyer1.findOne();
         if (existingFlyer1) {
 
-            const existingImagePath = path.join(__dirname, '../public/image/flyer1', existingFlyer1.flyer1Image);
-
-            // Step 2: Check if the file exists
-            if (fs.existsSync(existingImagePath)) {
-                // Step 3: Delete the existing image file
-                fs.unlinkSync(existingImagePath)
-            };
+            // Delete old image from Cloudinary
+            const oldImagePublicId = existingFlyer1.flyer1Image.split('/').pop().split('.')[0];
+            await cloudinary.uploader.destroy(`landingpages/${oldImagePublicId}`);
 
             const updatedFlyer1 = await Flyer1.findByIdAndUpdate(
                 existingFlyer1._id,
@@ -217,7 +148,7 @@ const getFlyer1Schema = async (req, res) => {
         const getFlyer1Var = await Flyer1.find()
         res.status(201).json(getFlyer1Var)
     } catch (error) {
-        res.status(500).json({error, message: 'Flyer1 not found'})
+        res.status(500).json({ error, message: 'Flyer1 not found' })
     }
 }
 
@@ -225,23 +156,17 @@ const getFlyer1Schema = async (req, res) => {
 const uploadFlyer2Schema = async (req, res) => {
     try {
         const { flyer2Title } = req.body;
-        const flyer2ImageUrl = req.file.filename;
+        const flyer2ImageUrl = req.file.path;
 
         console.log('uploadFlyerSchema');
 
         const existingFlyer2 = await Flyer2.findOne();
         console.log('Existing Flyer2 Test Schema', existingFlyer2);
-        
+
         if (existingFlyer2) {
-            // Step 1: Retrieve the existing image file path
-            const existingImagePath = path.join(__dirname, '../public/image/flyer2', existingFlyer2.flyer2Image);
-
-            // Step 2: Check if the file exists
-            if (fs.existsSync(existingImagePath)) {
-                // Step 3: Delete the existing image file
-                fs.unlinkSync(existingImagePath)
-            };
-
+            // Delete old image from Cloudinary
+            const oldImagePublicId = existingFlyer2.flyer2Image.split('/').pop().split('.')[0];
+            await cloudinary.uploader.destroy(`landingpages/${oldImagePublicId}`);
             const updatedFlyer2 = await Flyer2.findByIdAndUpdate(
                 existingFlyer2._id,
                 { flyer2Title, flyer2Image: flyer2ImageUrl },
@@ -249,7 +174,7 @@ const uploadFlyer2Schema = async (req, res) => {
             );
 
             console.log('New Flyer2 Test Schema', updatedFlyer2);
-            
+
             return res.status(200).json({ updatedFlyer2, message: 'Flyer2 updated successfully!' });
         } else {
             const newFlyer2 = await Flyer2.create({
@@ -269,7 +194,7 @@ const getFlyer2Schema = async (req, res) => {
         const getFlyer2Var = await Flyer2.find()
         res.status(201).json(getFlyer2Var)
     } catch (error) {
-        res.status(500).json({error, message: 'Flyer2 not found'})
+        res.status(500).json({ error, message: 'Flyer2 not found' })
     }
 }
 
@@ -280,10 +205,6 @@ module.exports = {
     uploadMenuImageSchema,
     getAllMenuImage,
     getSingleMenuImage,
-    getAllSpecialImage,
-    getSingleSpecialImage,
-    createSpecialImage,
-    uploadSpecialImageSchema,
     uploadFlyer1Schema,
     uploadFlyer2Schema,
     getFlyer1Schema,

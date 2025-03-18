@@ -7,7 +7,7 @@ const createGallery = async (req, res) => {
 
         const { galleryTitle, galleryType  } = req.body
 
-        const galleryUrl = req.file.filename
+        const galleryUrl = req.file.path
 
         if (!galleryTitle || !galleryType || !galleryUrl) {
             return res.status(400).json({ error: "Incomplete credentials" });
@@ -38,13 +38,9 @@ const deleteGallery = async (req, res) => {
         const {id: deleteGalleryId} = req.params
         const galleryVar = await gallery.findOneAndDelete({_id: deleteGalleryId})
 
-        const existingImagePath = path.join(__dirname, '../public/image/GalleryVideo', galleryVar.galleryMedia);
+        const oldImagePublicId = galleryVar.galleryMedia.split('/').pop().split('.')[0];
+        await cloudinary.uploader.destroy(`GalleryVideo/${oldImagePublicId}`);
 
-        // Step 2: Check if the file exists
-        if (fs.existsSync(existingImagePath)) {
-            // Step 3: Delete the existing image file
-            fs.unlinkSync(existingImagePath)
-        };
         res.status(200).json(galleryVar)
     } catch (error) {
         res.status(500).json(error)
