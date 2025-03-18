@@ -3,15 +3,15 @@ const path = require("path");
 const fs = require("fs");
 
 // Ensure the upload directory exists
-const uploadDirectory = 'public/uploads/GalleryVideo';
-if (!fs.existsSync(uploadDirectory)) {
-    fs.mkdirSync(uploadDirectory, { recursive: true });
-}
+// const uploadDirectory = 'public/uploads/GalleryVideo';
+// if (!fs.existsSync(uploadDirectory)) {
+//     fs.mkdirSync(uploadDirectory, { recursive: true });
+// }
 
 const galleryStorage = multer.diskStorage({
     destination: function (req, file, cb) {
         // Set the destination directory
-        cb(null, uploadDirectory);
+        cb(null, "public/uploads/GalleryVideo");
     },
     filename: function (req, file, cb) {
         // Create a unique filename
