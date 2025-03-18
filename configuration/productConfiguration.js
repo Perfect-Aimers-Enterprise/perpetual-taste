@@ -19,6 +19,6 @@ const storage = new CloudinaryStorage({
     }
 })
 
-const newMenuStorage = multer({ storage: storage }).single('menuImage')
+const menuStorage = multer({ storage: storage }).single('menuImage')
 
-module.exports = { newMenuStorage }
+module.exports = { menuStorage }
