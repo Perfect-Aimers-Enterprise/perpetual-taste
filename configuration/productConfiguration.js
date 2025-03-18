@@ -3,17 +3,23 @@ const multer = require('multer')
 const fs = require('fs')
 
 
+// Ensure the directory exists
+const uploadDir = 'public/uploads/menuImage'
+if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir, { recursive: true })
+}
 
 const newMenuStorage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'public/uploads/menuImage')
+        cb(null, uploadDir) // Now the folder exists for sure
     },
     filename: function (req, file, cb) {
-        const uniqueSuffix = Date.now() +'_'+ Math.round(Math.random()*1E9)
+        const uniqueSuffix = Date.now() + '_' + Math.round(Math.random() * 1E9)
         const fileExtension = path.extname(file.originalname)
-        cb(null, file.fieldname +'_'+ uniqueSuffix+fileExtension)
+        cb(null, file.fieldname + '_' + uniqueSuffix + fileExtension)
     }
 })
+
 
 // const newMenuStorage = multer.diskStorage({
 //     destination: function (req, file, cb) {
