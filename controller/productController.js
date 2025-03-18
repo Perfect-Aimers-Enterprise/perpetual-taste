@@ -1,4 +1,5 @@
 const productModel = require('../model/productModel')
+const cloudinary = require('cloudinary').v2;
 
 const createMenuProduct = async (req, res) => {
 

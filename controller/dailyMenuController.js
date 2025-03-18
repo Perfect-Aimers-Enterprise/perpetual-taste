@@ -1,6 +1,7 @@
 const DailyMenu = require('../model/dailyMenuModel');
 const path = require('path');
 const fs = require('fs');
+const cloudinary = require('cloudinary').v2;
 
 const createDailyMenu = async (req, res) => {
     try {

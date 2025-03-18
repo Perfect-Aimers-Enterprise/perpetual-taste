@@ -78,7 +78,8 @@ const getAllMenuProductFunc = async () => {
             eachOrderNowButton.addEventListener('click', (e) => {
                 const token = localStorage.getItem('token');
                 if (!token) {
-                   alert('Please Register an Account')
+                //    alert('Please Register an Account')
+                navigationPopUp.classList.remove('hidden')
                    return
                 }
                 const menuProductId = e.target.closest('.menu-item').dataset.id;

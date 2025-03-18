@@ -1,6 +1,7 @@
 const gallery = require('../model/gallery')
 const path = require('path');
 const fs = require('fs');
+const cloudinary = require('cloudinary').v2;
 
 const createGallery = async (req, res) => {
     try {
