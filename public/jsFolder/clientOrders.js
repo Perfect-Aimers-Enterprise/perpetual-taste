@@ -5,7 +5,7 @@ const config2 = {
       : `${window.location.protocol}//${window.location.hostname}`
   };
 
-//   const navigationPopUp = document.getElementById('navigationPopUp')
+  const navigationPopUp = document.getElementById('navigationPopUp')
 
 
 document.addEventListener('DOMContentLoaded', ()=> {
