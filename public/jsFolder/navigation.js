@@ -169,6 +169,8 @@ loginForm.addEventListener('submit', async (e) => {
             })
         })
 
+        console.log(userLoginEmail, userLoginPassword);
+        
         console.log(loginResponse);
 
         if (!loginResponse.ok) {
