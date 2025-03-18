@@ -86,4 +86,4 @@ const specialStorage = multer({storage: newSpecialStorage}).single('specialImage
 //     }
 // }
 
-module.exports = {menuStorage, specialStorage, handleFileUpload, handleSpecialFileUpload}
+module.exports = {menuStorage, specialStorage}
