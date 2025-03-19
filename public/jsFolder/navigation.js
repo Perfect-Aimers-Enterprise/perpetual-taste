@@ -226,8 +226,6 @@ CloseBtnOTP.onclick = () => {
 
 const requestOtpFunc = async (e) => {
     e.preventDefault()
-
-    alert('started')
     const userEmail = localStorage.getItem('userEmail')
 
     if (!userEmail) {
