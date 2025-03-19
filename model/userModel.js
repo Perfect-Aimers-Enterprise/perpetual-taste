@@ -23,16 +23,14 @@ const userSchema = new mongoose.Schema({
     resetTokenExpires: Date
 })
 
-userSchema.pre('save', async function () {
-     // Only hash the password if it is modified
-     if (!this.isModified("userPassword")) return next();
 
-    const salt = await bcrypt.genSalt(10)
-    const hashedPassword = await bcrypt.hash(this.userPassword, salt)
-    this.userPassword = hashedPassword
+userSchema.pre('save', async function(next) {
+    if (!this.isModified('userPassword')) return next(); // Only hash if the password has been modified
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+    next();
+});
 
-    next(); // Call next() to proceed
-})
 
 userSchema.methods.createJwt = function () {
     return jwt.sign({
